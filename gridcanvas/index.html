@@ -1,0 +1,222 @@
+<html>
+  <body>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        border: none;
+        border-collapse: collapse;
+      }
+
+      td {
+        border: 1px solid #3dd56d66;
+        height: 30px;
+        width: 30px;
+        min-height: 30px;
+        min-width: 30px;
+      }
+
+      td:hover,
+      td.active:hover {
+        background: #3dd56d66;
+      }
+
+      td.active {
+        background: #3dd56d;
+      }
+
+    </style>
+
+    <div class="table-container">
+      <table>
+        <tbody id="canvas"></tbody>
+      </table>
+    </div>
+
+    <div>
+      <button id="clear">❌ Clear</button>
+      <button id="submit">✅ Done</button>
+    </div>
+
+    <script>
+      // ----------------------------------------------------
+      // Just copy/paste these functions as-is:
+
+      function sendMessageToStreamlitClient(type, data) {
+        var outData = Object.assign({
+          isStreamlitMessage: true,
+          type: type,
+        }, data)
+        window.parent.postMessage(outData, "*")
+      }
+
+      function init() {
+        sendMessageToStreamlitClient("streamlit:componentReady", {apiVersion: 1})
+      }
+
+      function setFrameHeight(height) {
+        sendMessageToStreamlitClient("streamlit:setFrameHeight", {height: height})
+      }
+
+      // The `data` argument can be any JSON-serializable value.
+      function sendDataToPython(data) {
+        sendMessageToStreamlitClient("streamlit:setComponentValue", data)
+      }
+
+      // ----------------------------------------------------
+      // Now modify this part of the code to fit your needs:
+
+      let numWeeks
+
+      // data is any JSON-serializable value you sent from Python,
+      // and it's already deserialized for you.
+      function onDataFromPython(event) {
+        if (event.data.type !== "streamlit:render") return
+        if (numWeeks == event.data.args.num_weeks) {
+          return
+        }
+
+        numWeeks = event.data.args.num_weeks
+        changeNumWeeks(numWeeks)
+        setFrameHeight(document.documentElement.clientHeight)
+      }
+
+      //myInput.addEventListener("change", function() { sendDataToPython({
+      //    value: myInput.value,
+      //    dataType: "json",
+      //  })
+      //})
+
+      // Hook things up!
+      window.addEventListener("message", onDataFromPython)
+      init()
+
+      // Hack to autoset the iframe height.
+      window.addEventListener("load", function() {
+        window.setTimeout(function() {
+          setFrameHeight(document.documentElement.clientHeight)
+        }, 0)
+      })
+
+      // Optionally, if the automatic height computation fails you, give this component a height manually
+      // by commenting out below:
+      //setFrameHeight(200)
+
+      const canvas = document.getElementById('canvas')
+      let bitmap
+      let mouseDown = false
+      let turnOn = true
+
+      function setCellClass(td, active) {
+        if (active) {
+          td.classList.add('active')
+        } else {
+          td.classList.remove('active')
+        }
+      }
+
+      function setCell(td, w, d, active) {
+        bitmap[w][d] = active
+        setCellClass(td, active)
+      }
+
+      function appendWeek(bitmap) {
+        const week = []
+        bitmap.push(week)
+
+        for (let d = 0; d < 7; d++) {
+          week.push(false)
+        }
+      }
+
+      function initBitmap() {
+        let bitmap = []
+
+        for (let w = 0; w < numWeeks; w++) {
+          appendWeek(bitmap)
+        }
+
+        return bitmap
+      }
+
+      function resetTable() {
+        canvas.innerHTML = ''
+
+        for (let d = 0; d < 7; d++) {
+          const tr = document.createElement('tr')
+          canvas.appendChild(tr)
+        }
+
+        for (let w = 0; w < bitmap.length; w++) {
+          for (let d = 0; d < 7; d++) {
+            const td = document.createElement('td')
+            setCellClass(td, bitmap[w][d])
+
+            td.addEventListener('mousedown', () => {
+              turnOn = !bitmap[w][d]
+              setCell(td, w, d, turnOn)
+            })
+
+            td.addEventListener('mouseover', () => {
+              if (mouseDown) {
+                setCell(td, w, d, turnOn)
+              }
+            })
+
+            const tr = canvas.childNodes[d]
+            tr.appendChild(td)
+          }
+        }
+      }
+
+      function changeNumWeeks(newValue) {
+        if (newValue < bitmap.length) {
+          bitmap.splice(newValue, bitmap.length - newValue)
+        } else {
+          for (let w = bitmap.length; w < newValue; w++) {
+            appendWeek(bitmap)
+          }
+        }
+
+        console.log(bitmap)
+
+        resetTable()
+      }
+
+      function reset() {
+        bitmap = initBitmap()
+        resetTable()
+      }
+
+      function clear() {
+        reset()
+        submit()
+      }
+
+      function submit() {
+        // Send bitmap to Streamlit.
+        sendDataToPython({
+          value: bitmap,
+          dataType: "json",
+        })
+      }
+
+      document.body.addEventListener('mousedown', () => mouseDown = true)
+      document.body.addEventListener('mouseup', () => mouseDown = false)
+      document.getElementById('clear').addEventListener('click', clear)
+      document.getElementById('submit').addEventListener('click', submit)
+
+      reset()
+    </script>
+  </body>
+</html>

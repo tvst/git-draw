@@ -19,7 +19,9 @@ def get_readme_contents():
 """
 # Git draw
 
-Draw your own Github activity history!
+Draw your own Github contribution chart!
+
+It's a great way to send messages to lurkers and recruiters :wink:
 """
 
 ''

@@ -17,7 +17,7 @@ def get_readme_contents():
 
 
 """
-# Git draw
+# :see_no_evil: Git draw
 
 Draw your own Github contribution chart!
 

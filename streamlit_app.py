@@ -154,15 +154,16 @@ else:
 """
 ## :eight_spoked_asterisk: Step 4: Unpack repo and push to Github
 
-1. [Create a new _empty_ repo in Github.](https://github.com/new)
+1. **Create a new empty repo in Github.**
 
-   Give it a name like `git-drawing`.
+   For the lazy, [just click here](https://github.com/new)
+   then give the repo a name like `git-drawing`.
 
-1. Unzip the downloaded into your own computer
+1. **Unzip the downloaded file**
 
-   You'll see a new folder called `git-drawing`.
+   Once you're done, you'll see a new folder called `git-drawing`.
 
-1. Push to Github!
+1. **Push to Github**
 
    Set your repo from step 1 as your remote Git server and push to it.
 
@@ -175,4 +176,6 @@ else:
    git remote add origin https://github.com/YOUR_NAME/git-drawing.git
    git push -u origin main
    ```
+
+1. **PROFIT!!! :money_mouth_face:**
 """

@@ -78,15 +78,6 @@ Type the email associated with your Github account, so we can generate a repo
 full of commits with that email set as the author.
 """
 
-# dates = [
-#     datetime.datetime(day=1, month=1, year=2022, tzinfo=datetime.timezone.utc),
-#     datetime.datetime(day=2, month=1, year=2022, tzinfo=datetime.timezone.utc),
-#     datetime.datetime(day=3, month=1, year=2022, tzinfo=datetime.timezone.utc),
-#     datetime.datetime(day=4, month=1, year=2022, tzinfo=datetime.timezone.utc),
-#     datetime.datetime(day=5, month=1, year=2022, tzinfo=datetime.timezone.utc),
-#     datetime.datetime(day=6, month=1, year=2022, tzinfo=datetime.timezone.utc),
-# ]
-
 if 'repo_zip' not in st.session_state:
     st.session_state.repo_zip = None
 

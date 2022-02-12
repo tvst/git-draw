@@ -44,10 +44,12 @@ today_utc = datetime.datetime(
 curr_weekday = today_utc.weekday()
 one_day = datetime.timedelta(days=1)
 
-if curr_weekday < 5: # Saturday
+if curr_weekday < 5: # < Saturday
     last_saturday = today_utc - datetime.timedelta(days=curr_weekday + 2)
 elif curr_weekday == 6: # Sunday
     last_saturday = today_utc - one_day
+else: # == Saturday
+    last_saturday = today_utc
 
 @st.experimental_memo
 def get_dates(weeks):

@@ -154,11 +154,11 @@ else:
    For the lazy, [just click here](https://github.com/new)
    then give the repo a name like `git-drawing`.
 
-1. **Unzip the downloaded file**
+1. **Unzip the downloaded file.**
 
    Once you're done, you'll see a new folder called `git-drawing`.
 
-1. **Push to Github**
+1. **Push to Github.**
 
    Set your repo from step 1 as your remote Git server and push to it.
 

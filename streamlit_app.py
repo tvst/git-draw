@@ -10,6 +10,9 @@ import hilevel_util
 from gridcanvas import gridcanvas
 
 
+st.set_page_config(page_title="Git draw", page_icon="🙈")
+
+
 @st.cache_resource
 def get_readme_contents():
     with open('template.md', 'rb') as f:

@@ -10,7 +10,7 @@ import hilevel_util
 from gridcanvas import gridcanvas
 
 
-@st.experimental_singleton
+@st.cache_resource
 def get_readme_contents():
     with open('template.md', 'rb') as f:
         return f.read()

@@ -51,7 +51,7 @@ elif curr_weekday == 6: # Sunday
 else: # == Saturday
     last_saturday = today_utc
 
-@st.experimental_memo
+@st.cache_data
 def get_dates(weeks):
     dates = []
     if not weeks:

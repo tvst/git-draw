@@ -167,7 +167,7 @@ else:
 
    Below are the commmands to do this, assuming you named your repo `git-drawing`.
 
-   (Replace `YOUR_NAME` with your Github username, of course :wink:)
+   (Replace `YOUR_NAME` with your Github username, of course)
 
    ```
    cd git-drawing
@@ -175,5 +175,5 @@ else:
    git push -u origin main
    ```
 
-1. **PROFIT!!! :money_mouth_face:**
+1. **PROFIT!!!**
 """

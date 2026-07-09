@@ -31,7 +31,7 @@ It's a great way to send messages to lurkers and recruiters :wink:
 ''
 
 """
-## :pencil: Step 1: Draw something
+## Step 1: Draw something
 
 Drag your mouse over the grid below to draw your own Git history.
 The right-most column is the current week.
@@ -79,7 +79,7 @@ dates = get_dates(weeks)
 ''
 
 """
-## :robot_face: Step 2: Generate repo
+## Step 2: Generate repo
 
 Type the email associated with your Github account, so we can generate a repo
 full of commits with that email set as the author.
@@ -130,7 +130,7 @@ else:
 ''
 
 """
-## :arrow_down: Step 3: Download repo
+## Step 3: Download repo
 
 Download a zip file with the generated Git repo.
 """
@@ -150,7 +150,7 @@ else:
 ''
 
 """
-## :eight_spoked_asterisk: Step 4: Unpack repo and push to Github
+## Step 4: Unpack repo and push to Github
 
 1. **Create a new empty repo in Github.**
 
